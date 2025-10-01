@@ -1,0 +1,76 @@
+---
+# control
+# CASAS Two-Tower 模型默认配置
+control:
+  data_name: SmartHome
+  model_name: two_tower
+  subset: hh105-2015-LS001
+  batch_size: 4
+  num_workers: 4
+model:
+  d_model: 128
+  num_sensors: 16
+  value_dim: 1
+  context_layers: 2
+  context_heads: 4
+  query_layers: 1
+  query_heads: 4
+  cross_layers: 2
+  cross_heads: 4
+  binary_dim: 1
+  count_dim: 1
+  tte_dim: 1
+  reg_dim: 1
+time_features:
+  hour_sin_cos: true
+  weekday_sin_cos: true
+  use_rff: true
+  rff_dim: 16
+  rff_scale: 0.01
+dataset:
+  data_dir: C:/Users/acer/Desktop/Two-tower/data
+  train_csv: C:/Users/acer/Desktop/Two-tower/data/data_2015_LS001.csv
+  val_csv: C:/Users/acer/Desktop/Two-tower/data/data_2015_LS001.csv
+  test_csv: C:/Users/acer/Desktop/Two-tower/data/data_2015_LS001.csv
+  history_window_sec: 3600
+  context_max_len: 256
+  query_max_len: 32
+  query_mode: random
+  count_delta: 300
+  query_span_sec: 3600
+  binary_threshold: 0.5
+loss:
+  binary_weight: 1.0
+  count_weight: 1.0
+  tte_weight: 1.0
+  reg_weight: 1.0
+  use_uncertainty: false
+optimizer:
+  name: Adam
+  lr: 0.001
+  weight_decay: 0.0
+train:
+  epochs: 10
+  log_interval: 10
+  val_interval: 100
+  grad_clip: 1.0
+  device: cuda
+checkpoint:
+  dir: output/exp/two_tower
+  resume: false
+  save_best: true
+
+# experiment
+cache_dir: data/cache/hh105_greenfield
+use_cache: false
+save_cache: false
+max_samples: 0
+pin_memory: true
+num_workers: 0
+init_seed: 0
+num_experiments: 1
+log_interval: 0.25
+device: cuda
+resume_mode: 0
+profile: false
+
